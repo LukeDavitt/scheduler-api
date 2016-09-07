@@ -38,5 +38,6 @@ defmodule Scheduler.Endpoint do
     key: "_scheduler_api_key",
     signing_salt: "Juu92fI/"
 
+  plug Corsica, allow_headers: ~w(Accept Content-Type Authorization)
   plug Scheduler.Router
 end
