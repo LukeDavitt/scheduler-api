@@ -23,6 +23,21 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :ueberauth, Ueberauth,
+  providers: [
+    identity: {
+      Ueberauth.Strategy.Identity,
+      [callback_methods: ["POST"]]
+    }
+  ]
+
+  config :guardian, Guardian,
+    issuer: "Scheduler",
+    ttl: {30, :days},
+    secret_key: "bswGSd5UvL5wTqbxjHwglB0MimAxLUitmJuogZhJ5EgjkZYAkFEIuRYhF7HjsHka",
+    serializer: Scheduler.GuardianSerializer,
+    permissions: %{default: [:read, :write]}
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
